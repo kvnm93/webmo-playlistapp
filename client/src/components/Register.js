@@ -9,6 +9,7 @@ class Register extends Component {
       last_name: '',
       username: '',
       password: '',
+      user_roles: null,
       errors: {}
     }
 
@@ -26,7 +27,8 @@ class Register extends Component {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
+      user_roles: this.state.user_roles
     }
 
     register(newUser).then(res => {
@@ -73,6 +75,20 @@ class Register extends Component {
                   value={this.state.username}
                   onChange={this.onChange}
                 />
+              </div>
+              <div className="form-group">
+                <label htmlFor="user_roles">Rolle</label>
+                <select
+                  className="form-control"
+                  name="user_roles"
+                  placeholder="User Role"
+                  value={this.state.user_roles}
+                  onChange={this.onChange}
+                >
+                  <option value="">Wähle eine Rolle</option>
+                  <option value="1">ADMIN</option>
+                  <option value="2">LISTENER</option>
+                </select>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>

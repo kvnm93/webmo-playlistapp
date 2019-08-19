@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
         through: {
             model: models.user_role
         },
-        as: 'Role',
+        as: 'user_roles',
         foreignKey: 'user_id'
     });
     models.user.belongsToMany(models.playlist, {

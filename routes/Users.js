@@ -6,8 +6,6 @@ const bcrypt = require('bcrypt')
 
 const models = require('../models');
 
-
-
 users.use(cors())
 
 process.env.SECRET_KEY = 'secret'
@@ -19,13 +17,14 @@ users.post('/register', (req, res) => {
     last_name: req.body.last_name,
     username: req.body.username,
     password: req.body.password,
-    created: today
+    created: today,
+    user_roles: req.body.user_roles
   }
 
   models.user.findOne({
     include: [{
       model: models.role,
-      as: 'Role',
+      as: 'user_roles',
       required: false,
       attributes: ['id', 'role'],
       through: { attributes: [] }
@@ -38,10 +37,14 @@ users.post('/register', (req, res) => {
     .then(user => {
       if (!user) {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
+
           userData.password = hash
           models.user.create(userData)
             .then(user => {
-              res.json({ status: user.username + 'Registered!' })
+              const role = models.role.findByPk(userData.user_roles)
+              console.log(role);
+              user.addRole(role)
+              res.json({ status: user.username + ' Registered!' })
             })
             .catch(err => {
               res.send('error: ' + err)
@@ -61,7 +64,7 @@ users.post('/login', (req, res) => {
   models.user.findOne({
     include: [{
       model: models.role,
-      as: 'Role',
+      as: 'user_roles',
       required: false,
       attributes: ['id', 'role'],
       through: { attributes: [] }

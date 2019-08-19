@@ -8,6 +8,7 @@ class Profile extends Component {
       first_name: '',
       last_name: '',
       username: '',
+      user_roles: [],
       errors: {}
     }
   }
@@ -15,10 +16,12 @@ class Profile extends Component {
   componentDidMount() {
     const token = localStorage.usertoken
     const decoded = jwt_decode(token)
+    console.log(decoded);
     this.setState({
       first_name: decoded.first_name,
       last_name: decoded.last_name,
-      username: decoded.username
+      username: decoded.username,
+      user_roles: decoded.user_roles
     })
   }
 
@@ -42,6 +45,10 @@ class Profile extends Component {
               <tr>
                 <td>Username</td>
                 <td>{this.state.username}</td>
+              </tr>
+              <tr>
+                <td>Roles</td>
+                <td>{this.state.user_roles.length > 0 && this.state.user_roles.map((e) => { return e.role }).join(", ")}</td>
               </tr>
             </tbody>
           </table>
