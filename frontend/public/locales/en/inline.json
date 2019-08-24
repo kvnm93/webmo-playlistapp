@@ -1,0 +1,14 @@
+{
+  "LOGIN": "Login",
+  "REGISTER": "Register",
+  "PLAYLISTS": "Playlists",
+  "PROFILE": "Profile",
+  "LOGOUT": "Logout",
+  "SONGS": "Songs",
+  "SIGNUP": "Registrierung",
+  "USER_INFO": "User Info",
+  "FIRST_NAME": "First Name",
+  "LAST_NAME": "Last Name",
+  "USERNAME": "Username",
+  "USER_ROLE": "User Role"
+}

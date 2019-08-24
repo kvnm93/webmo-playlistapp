@@ -32,6 +32,19 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
+
+sequelize.sync({ force: true }).then(() => {
+  // Now the `users` table in the database corresponds to the model definition
+  db.role.create({
+    id: 1,
+    name: 'ADMIN'
+  });
+  db.role.create({
+    id: 2,
+    name: 'LISTENER'
+  });
+});
+
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

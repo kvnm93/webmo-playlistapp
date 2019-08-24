@@ -25,28 +25,19 @@ module.exports = (sequelize, DataTypes) => {
   },
   {
     timestamps: false,
-    tableName: 'user',
     freezeTableName: true,
-    underscored: true
   });
   User.associate = function(models) {
     models.user.belongsToMany(models.role, {
-        through: {
-            model: models.user_role
-        },
-        as: 'user_roles',
-        foreignKey: 'user_id'
+        through: 'userRole',
+        as: 'roles'
     });
     models.user.belongsToMany(models.playlist, {
-        through: {
-            model: models.playlist_follower
-        },
-        as: 'UserPlaylistFollow',
-        foreignKey: 'user_id'
+        through: 'userPlaylist',
+        as: 'playlists'
     });
     models.user.hasMany(models.playlist, {
-        as: 'UserPlaylistCreator',
-        foreignKey: 'creator'
+        as: 'owner'
     });
   };
   return User;

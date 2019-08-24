@@ -20,7 +20,7 @@ Install Node Packages for node.js (Backend)
 
 Install Node Packages for React App (Frontend)
 
-``cd client && npm install``
+``cd frontend && npm install``
 
 
 
@@ -28,6 +28,10 @@ Run Backend Server
 
 ``npm start``
 
+
+Run Frontend Server
+
+``cd frontend && npm start``
 
 
 

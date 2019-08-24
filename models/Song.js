@@ -12,17 +12,12 @@ module.exports = (sequelize, DataTypes) => {
     album: DataTypes.STRING,
   }, {
     timestamps: false,
-    tableName: 'song',
-    freezeTableName: true,
-    underscored: true
+    freezeTableName: true
   });
   Song.associate = function(models) {
     models.song.belongsToMany(models.playlist, {
-        through: {
-            model: models.playlist_song
-        },
-        as: 'SongPlaylist',
-        foreignKey: 'song_id'
+        through: 'playlistSong',
+        as: 'playlists'
     });
   };
   return Song;

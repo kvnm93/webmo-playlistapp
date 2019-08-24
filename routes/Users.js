@@ -11,22 +11,20 @@ users.use(cors())
 process.env.SECRET_KEY = 'secret'
 
 users.post('/register', (req, res) => {
-  const today = new Date()
   const userData = {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     username: req.body.username,
     password: req.body.password,
-    created: today,
     user_roles: req.body.user_roles
   }
 
   models.user.findOne({
     include: [{
       model: models.role,
-      as: 'user_roles',
+      as: 'roles',
       required: false,
-      attributes: ['id', 'role'],
+      attributes: ['id', 'name'],
       through: { attributes: [] }
     }],
     where: {
@@ -41,17 +39,15 @@ users.post('/register', (req, res) => {
           userData.password = hash
           models.user.create(userData)
             .then(user => {
-              const role = models.role.findByPk(userData.user_roles)
-              console.log(role);
-              user.addRole(role)
+              user.setRoles([userData.user_roles])
               res.json({ status: user.username + ' Registered!' })
             })
             .catch(err => {
-              res.send('error: ' + err)
+              res.status(400).send('error: ' + err)
             })
         })
       } else {
-        res.json({ error: 'User already exists' })
+        res.status(400).json({ error: 'User already exists' })
       }
     })
     .catch(err => {
@@ -64,9 +60,9 @@ users.post('/login', (req, res) => {
   models.user.findOne({
     include: [{
       model: models.role,
-      as: 'user_roles',
+      as: 'roles',
       required: false,
-      attributes: ['id', 'role'],
+      attributes: ['id', 'name'],
       through: { attributes: [] }
     }],
     where: {

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
-    role: {
+    name: {
       allowNull: false,
       type: DataTypes.STRING,
       validate: {
@@ -14,18 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   }, {
-    tableName: 'role',
     freezeTableName: true,
-    underscored: true,
-      timestamps: false,
+    timestamps: false,
   });
   Role.associate = function(models) {
     models.role.belongsToMany(models.user, {
-        through: {
-          model: models.user_role
-        },
-        as: "User",
-        foreignKey: 'role_id'
+        through: 'userRole',
+        as: 'users'
     })
   };
   return Role;
