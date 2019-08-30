@@ -46,6 +46,7 @@ class Header extends React.Component {
 
         return <Layout.Header>
                 <Mobile>
+                  <div style={{fontSize:30, fontWeight: "bold", position: "absolute", left: 40, color: "white"}}>PlaylistApp</div>
                   <BurgerMenu right>
                     <a><Link to={"/profile"}>{t('inline:PROFILE')}</Link></a>
                     <a><Link to={"/songs"}>{t('inline:SONGS')}</Link></a>

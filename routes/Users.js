@@ -35,7 +35,7 @@ users.post('/register', (req, res) => {
     .then(user => {
       if (!user) {
         bcrypt.hash(req.body.password, 10, (err, hash) => {
-
+          console.log("passwrod:", hash)
           userData.password = hash
           models.user.create(userData)
             .then(user => {
@@ -73,7 +73,7 @@ users.post('/login', (req, res) => {
       if (user) {
         if (bcrypt.compareSync(req.body.password, user.password)) {
           let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
-            expiresIn: 1440
+            expiresIn: 999999
           })
           res.send(token)
         }
@@ -84,26 +84,6 @@ users.post('/login', (req, res) => {
     .catch(err => {
       console.log("error", err);
       res.status(400).json({ error: err })
-    })
-})
-
-users.get('/profile', (req, res) => {
-  var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY)
-
-  models.user.findOne({
-    where: {
-      id: decoded.id
-    }
-  })
-    .then(user => {
-      if (user) {
-        res.json(user)
-      } else {
-        res.send('User does not exist')
-      }
-    })
-    .catch(err => {
-      res.send('error: ' + err)
     })
 })
 

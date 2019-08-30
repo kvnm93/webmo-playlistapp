@@ -53,40 +53,6 @@ class Profile extends Component {
     );
   }
 
-  /*
-  render() {
-    return (
-      <div className="container">
-        <div className="jumbotron mt-5">
-          <div className="col-sm-8 mx-auto">
-            <h1 className="text-center">PROFILE</h1>
-          </div>
-          <table className="table col-md-6 mx-auto">
-            <tbody>
-              <tr>
-                <td>First Name</td>
-                <td>{this.state.first_name}</td>
-              </tr>
-              <tr>
-                <td>Last Name</td>
-                <td>{this.state.first_name}</td>
-              </tr>
-              <tr>
-                <td>Username</td>
-                <td>{this.state.username}</td>
-              </tr>
-              <tr>
-                <td>Roles</td>
-                <td>{this.state.user_roles.length > 0 && this.state.user_roles.map((e) => { return e.name }).join(", ")}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    )
-  }
-
-  */
 }
 
 export default withNamespaces(['inline'])(Profile);

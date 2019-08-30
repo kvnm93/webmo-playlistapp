@@ -30,14 +30,17 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function(models) {
     models.user.belongsToMany(models.role, {
         through: 'userRole',
-        as: 'roles'
+        as: 'roles',
+        onDelete: 'CASCADE'
     });
     models.user.belongsToMany(models.playlist, {
-        through: 'userPlaylist',
-        as: 'playlists'
+        through: 'playlistUser',
+        as: 'playlists',
+        onDelete: 'CASCADE'
     });
     models.user.hasMany(models.playlist, {
-        as: 'owner'
+        as: 'owner',
+        onDelete: 'CASCADE'
     });
   };
   return User;

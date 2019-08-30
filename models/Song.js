@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
     },
+    artist: DataTypes.STRING,
     title: DataTypes.STRING,
     genre: DataTypes.STRING,
     length: DataTypes.INTEGER,
@@ -17,7 +18,8 @@ module.exports = (sequelize, DataTypes) => {
   Song.associate = function(models) {
     models.song.belongsToMany(models.playlist, {
         through: 'playlistSong',
-        as: 'playlists'
+        as: 'playlists',
+        onDelete: 'CASCADE'
     });
   };
   return Song;

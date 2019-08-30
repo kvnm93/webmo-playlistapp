@@ -66,7 +66,7 @@ class SignupForm extends React.Component
                     </FormItem>
                     <FormItem>
                         {
-                            form.getFieldDecorator("user_role", {
+                            form.getFieldDecorator("user_roles", {
                                 rules: [{ required: true, message: t('messages:ROLE_REQUIRED') }]
                             })(
                                 <Select placeholder={t('placeholders:SELECT_A_ROLE')}>
@@ -78,10 +78,10 @@ class SignupForm extends React.Component
                     </FormItem>
                     <FormItem>
                         {
-                            form.getFieldDecorator('email', {
+                            form.getFieldDecorator('username', {
                                 rules: [{ required: true, message: t('messages:EMAIL_REQUIRED') }]
                             })(
-                                <Input placeholder={ t('placeholders:EMAIL') } />
+                                <Input placeholder={ t('placeholders:USERNAME') } />
                             )
                         }
                     </FormItem>

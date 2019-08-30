@@ -10,5 +10,16 @@
   "FIRST_NAME": "First Name",
   "LAST_NAME": "Last Name",
   "USERNAME": "Username",
-  "USER_ROLE": "User Role"
+  "USER_ROLE": "User Role",
+  "FOLLOWING": "Following",
+  "ALL": "All",
+  "TITLE": "Title",
+  "ARTIST": "Artist",
+  "GENRE": "Genre",
+  "LENGTH": "Length",
+  "BY": "By",
+  "YES": "Yes",
+  "NO": "No",
+  "DELETE": "Delete",
+  "EDIT": "Edit"
 }

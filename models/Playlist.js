@@ -8,21 +8,25 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    cover: DataTypes.STRING,
   }, {
     timestamps: false,
     freezeTableName: true,
   });
   Playlist.associate = function(models) {
     models.playlist.belongsTo(models.user, {
-        as: "creator"
+        as: "creator",
+        onDelete: 'CASCADE'
     });
     models.playlist.belongsToMany(models.user, {
         through: 'playlistUser',
-        as: 'followers'
+        as: 'followers',
+        onDelete: 'CASCADE'
     });
     models.playlist.belongsToMany(models.song, {
         through: 'playlistSong',
-        as: 'songs'
+        as: 'songs',
+        onDelete: 'CASCADE'
     });
   };
   return Playlist;

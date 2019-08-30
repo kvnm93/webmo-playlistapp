@@ -12,6 +12,10 @@ export const register = newUser => {
     .then(response => {
       console.log('Registered')
     })
+    .catch(err => {
+      console.log(err);
+      return false;
+    })
 }
 
 export const login = user => {
@@ -22,9 +26,11 @@ export const login = user => {
     })
     .then(response => {
       localStorage.setItem('usertoken', response.data)
+        console.log("setting token to " + response.data)
       return response.data
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
+      return false;
     })
 }

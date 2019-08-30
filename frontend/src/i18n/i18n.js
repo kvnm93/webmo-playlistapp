@@ -3,7 +3,7 @@ import Backend from 'i18next-xhr-backend';
 
 import { I18nextProvider } from "react-i18next";
 
-let loadPath = 'locales/{{lng}}/{{ns}}.json';
+let loadPath = '/locales/{{lng}}/{{ns}}.json';
 
 i18n
     .use(Backend)
