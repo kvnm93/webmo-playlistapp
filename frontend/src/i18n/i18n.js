@@ -9,7 +9,7 @@ i18n
     .use(Backend)
     .use(I18nextProvider)
     .init({
-        fallbackLng: 'en',
+        fallbackLng: 'de',
         ns: [
             'inline',
             'buttons',

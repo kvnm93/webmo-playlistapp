@@ -1,0 +1,17 @@
+{
+  "CONFIRM_DELETE_SONG": "Möchtest du wirklich diesen Song löschen?",
+  "CONFIRM_DELETE_PLAYLIST": "Möchtest du wirklich diese PLaylist löschen?",
+  "SUCCESSFULLY_UPDATED": "Erfolgreich bearbeitet",
+  "UPDATE_FAILED": "Update fehlgeschlagen",
+  "CREATION_FAILED": "Erstellung fehlgeschlagen",
+  "SUCCESSFULLY_CREATED": "Erfolgreich erstellt",
+  "FAILED_TO_DELETE_PLAYLIST": "Playlist konnte nicht gelöscht werden",
+  "SUCCESSFULLY_DELETED_PLAYLIST": "Playlist wurde erfolgreich gelöscht",
+  "SUCCESSFULLY_DELETED_SONG": "Songs wurden erfolgreich gelöscht",
+  "USERNAME_REQUIRED": "Bitte Username angeben",
+  "PASSWORD_REQUIRED": "Bitte Password angeben",
+  "FIRSTNAME_REQUIRED": "Bitte Vorname angeben",
+  "SURNAME_REQUIRED": "Bitte Nachname angeben",
+  "ROLE_REQUIRED": "Bitte Rolle auswählen",
+  "EMAIL_REQUIRED": "Bitte E-Mail angeben"
+}

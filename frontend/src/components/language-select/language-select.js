@@ -13,7 +13,7 @@ class LanguageSelect extends React.Component {
     const { position, defaultValue, loading, onChangeLanguage } = this.props;
     return (
         <Select className={position === 'header' ? 'language-select language-select-absolute' : position === 'header-right' ? 'language-select language-select-absolute-right' : 'language-select'}
-                defaultValue={defaultValue} loading={loading} onChange={onChangeLanguage}>
+                defaultValue={defaultValue} loading={loading} onChange={onChangeLanguage} style={{width: 80}}>
           <Select.Option value="de">DE</Select.Option>
           <Select.Option value="en">EN</Select.Option>
         </Select>

@@ -13,8 +13,13 @@ class Header extends React.Component {
         window.location = "/";
     };
 
+    handleChange = (lng) => {
+      const { i18n } = this.props;
+      i18n.changeLanguage(lng);
+    }
+
     render() {
-        const { t, selectedKeys } = this.props;
+        const { t, selectedKeys, i18n } = this.props;
 
         const loginRegisterDesktop = (
             <Menu theme="dark" mode="horizontal" style={{ position: 'absolute', right: 0, lineHeight: '64px' }} selectedKeys={ selectedKeys }>
@@ -23,6 +28,9 @@ class Header extends React.Component {
                 </Menu.Item>
                 <Menu.Item key="register">
                   <Link to={"/register"}>{t('inline:REGISTER')}</Link>
+                </Menu.Item>
+                <Menu.Item>
+                  <LanguageSelect onChangeLanguage={this.handleChange} defaultValue={i18n.language ? i18n.language : "de"}/>
                 </Menu.Item>
             </Menu>
         );
@@ -40,6 +48,9 @@ class Header extends React.Component {
                 </Menu.Item>
                 <Menu.Item onClick={ this.logout }>
                   Logout
+                </Menu.Item>
+                <Menu.Item>
+                  <LanguageSelect onChangeLanguage={this.handleChange} defaultValue={i18n.language ? i18n.language : "de"}/>
                 </Menu.Item>
             </Menu>
         );

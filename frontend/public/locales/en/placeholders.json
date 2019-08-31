@@ -5,5 +5,6 @@
   "USERNAME": "Username",
   "PASSWORD": "Password",
   "NAME": "Name",
-  "FIRSTNAME": "Firstname"
+  "FIRSTNAME": "Firstname",
+  "TYPE_TO_FIND_SONGS": "Search for songs..."
 }
