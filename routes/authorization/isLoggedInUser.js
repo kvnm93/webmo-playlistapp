@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
 
-module.exports = ensureLogin = (req, res, next) => {
+module.exports = isLoggedInUser = (req, res, next) => {
   try {
      var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
      return next();

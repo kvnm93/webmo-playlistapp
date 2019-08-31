@@ -3,15 +3,16 @@ const playlists = express.Router()
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-const ensureLogin = require('./authorization');
+const isLoggedInUser = require('./authorization/isLoggedInUser');
+const isAdmin = require('./authorization/isAdmin');
 const models = require('../models');
 
 playlists.use(cors())
 
-process.env.SECRET_KEY = require('./authorization');
+process.env.SECRET_KEY = require('./authorization/secret');
 
 // Get Playlists
-playlists.get('/get', ensureLogin, (req, res) => {
+playlists.get('/get', isLoggedInUser, (req, res) => {
   var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
 
   models.playlist.findAll({
@@ -43,7 +44,7 @@ playlists.get('/get', ensureLogin, (req, res) => {
 })
 
 // Get specific playlist
-playlists.get('/get/:playlist', ensureLogin, (req, res) => {
+playlists.get('/get/:playlist', isLoggedInUser, (req, res) => {
   var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
 
   console.log(decoded);
@@ -55,6 +56,13 @@ playlists.get('/get/:playlist', ensureLogin, (req, res) => {
       required: false,
       attributes: ['id', 'title', 'artist', 'length', 'genre', 'album'],
       through: { attributes: [] }
+    },
+    {
+      model: models.user,
+      as: 'followers',
+      required: false,
+      attributes: ['id'],
+      through: { attributes: [] },
     },
     {
       model: models.user,
@@ -74,7 +82,7 @@ playlists.get('/get/:playlist', ensureLogin, (req, res) => {
 })
 
 // Follow/Unfollow playlist
-playlists.post('/follow/:playlist', ensureLogin, (req, res) => {
+playlists.post('/follow/:playlist', isLoggedInUser, (req, res) => {
   var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
 
   models.user.findOne({
@@ -84,7 +92,6 @@ playlists.post('/follow/:playlist', ensureLogin, (req, res) => {
   })
     .then(user => {
       if (user) {
-          console.log("payload", req.body);
         if (req.body.unfollow) {
             user.removePlaylists([req.params.playlist])
         } else {
@@ -98,6 +105,26 @@ playlists.post('/follow/:playlist', ensureLogin, (req, res) => {
     .catch(err => {
       console.log("error", err);
       res.status(400).json({ error: err })
+    })
+})
+
+// Delete Playlist
+playlists.delete('/delete/:playlist', isAdmin, (req, res) => {
+  var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
+
+
+  models.playlist.findOne({
+    where: {
+      id: req.params.playlist
+    }
+  })
+    .then(playlist => {
+        playlist.destroy();
+        res.status(204).send("success");
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err)
     })
 })
 

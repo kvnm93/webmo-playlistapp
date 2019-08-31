@@ -1,3 +1,11 @@
 {
-  "CONFIRM_DELETE_SONG": "Do you really want to delete this song?"
+  "CONFIRM_DELETE_SONG": "Do you really want to delete this song?",
+  "CONFIRM_DELETE_PLAYLIST": "Do you really want to delete this playlist?",
+  "SUCCESSFULLY_UPDATED": "Successfully updated",
+  "UPDATE_FAILED": "Update failed",
+  "CREATION_FAILED": "Could not create",
+  "SUCCESSFULLY_CREATED": "Successfully created",
+  "FAILED_TO_DELETE_PLAYLIST": "Could not delete playlist",
+  "SUCCESSFULLY_DELETED_PLAYLIST": "Playlist successfully deleted",
+  "SUCCESSFULLY_DELETED_SONG": "Song successfully deleted"
 }

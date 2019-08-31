@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import jwt_decode from 'jwt-decode'
 import Header from "../layout/header";
-import {Col, Row, Icon, Card, Tabs, Input, Button} from "antd";
+import {Col, Row, Icon, Card, Tabs, Input, Button, Popconfirm, message} from "antd";
 import {DefaultBoxGridLayout} from "../utils/grid-layout";
 import {Section, SectionContent} from "../components/section";
 import {withNamespaces} from 'react-i18next';
 import {getPlaylists, followPlaylist, unfollowPlaylist} from '../actions/app';
 import {Link, withRouter} from 'react-router-dom'
+import {deletePlaylist} from "../actions/admin";
 
 const {TabPane} = Tabs;
 const {Meta} = Card;
@@ -33,6 +34,22 @@ class Playlists extends Component {
 
   componentDidUpdate() {
     console.log(this.state);
+  }
+
+  onClickDelete = (id) => {
+    const {t} = this.props;
+    deletePlaylist(id).then(data => {
+      this.setState({
+        ...this.state, playlists: this.state.playlists.filter((e) => {
+          return e.id !== id
+        }), my_playlists: this.state.playlists.filter((e) => {
+          return e.id !== id
+        })
+      });
+    }).catch(err => {
+        message.error(t('messages:FAILED_TO_DELETE_PLAYLIST'));
+      }
+    )
   }
 
   updateFollow = (element) => {
@@ -67,6 +84,7 @@ class Playlists extends Component {
   }
 
   getActionBar = (e) => {
+    const {t} = this.props;
     const token = localStorage.usertoken;
     const decoded = jwt_decode(token);
 
@@ -84,8 +102,17 @@ class Playlists extends Component {
 
     if (decoded.roles[0].id === 1) {
       actions.push(
-        <Icon type="delete" />,
-        <Icon type="edit" />,
+        <Popconfirm
+          title={t('messages:CONFIRM_DELETE_PLAYLIST')}
+          onConfirm={() => {
+            this.onClickDelete(e.id)
+          }}
+          okText={t('inline:YES')}
+          cancelText={t('inline:NO')}
+        >
+          <Icon type="delete"/>
+        </Popconfirm>,
+        <Icon onClick={() => { this.props.history.push("/playlists/edit/"+e.id) }} type="edit"/>,
       )
     }
 
@@ -95,7 +122,8 @@ class Playlists extends Component {
   render() {
     const {t} = this.props;
     const {error, playlists} = this.state;
-
+    const token = localStorage.usertoken;
+    const decoded = jwt_decode(token);
 
     return (
       <Row>
@@ -105,13 +133,22 @@ class Playlists extends Component {
             <Section>
               <SectionContent>
                 <Row>
+                  {decoded.roles[0].id === 1 &&
+                      <Button type="primary"
+                              style={{position:"absolute", top: 0, right: 0}}
+                              onClick={() => { this.props.history.push("/playlists/create") }}
+                      >
+                        {t('buttons:ADD')}
+                      </Button>
+                  }
                   <h2>Playlists</h2>
                   <Tabs defaultActiveKey="1">
                     <TabPane tab={t('inline:ALL')} key="1">
                       <Row gutter={16}>
                         {playlists && playlists.length > 0 && playlists.map((e) => {
                           return (
-                            <Col {...{xs: 24, sm: 12, md: 12, lg: 8, xl: 8, xxl: 6}} key={e.id} style={{marginBottom: 20}}>
+                            <Col {...{xs: 24, sm: 12, md: 12, lg: 8, xl: 8, xxl: 6}} key={e.id}
+                                 style={{marginBottom: 20}}>
                               <Row type="flex" justify="center">
 
                                 <Card
@@ -135,7 +172,8 @@ class Playlists extends Component {
                         {playlists && playlists.length > 0 && playlists.map((e) => {
                           if (e.followers.length > 0)
                             return (
-                              <Col {...{xs: 24, sm: 12, md: 12, lg: 8, xl: 8, xxl: 6}} key={e.id} style={{marginBottom: 20}}>
+                              <Col {...{xs: 24, sm: 12, md: 12, lg: 8, xl: 8, xxl: 6}} key={e.id}
+                                   style={{marginBottom: 20}}>
                                 <Row type="flex" justify="center">
 
                                   <Card

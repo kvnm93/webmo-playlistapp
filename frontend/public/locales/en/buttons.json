@@ -1,3 +1,8 @@
 {
-  "SHOW_SONGS": "Show Songs"
+  "SHOW_SONGS": "Show Songs",
+  "SAVE_SONG": "Save Song",
+  "CREATE_SONG": "Create Song",
+  "ADD": "Add",
+  "SAVE_PLAYLIST": "Save Playlist",
+  "CREATE_PLAYLIST": "Create Playlist"
 }

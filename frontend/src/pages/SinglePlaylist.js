@@ -71,7 +71,8 @@ class SinglePlaylist extends Component {
                               <img src={data.cover} style={{width: "100%"}}/>
                           </Col>
                           <Col span={16}>
-                              <h1>{data.name}</h1>
+                              <div style={{fontSize: 28, fontWeight: "bold"}}>{data.name}</div>
+                              <div style={{marginBottom:10}}>{data.followers ? data.followers.length : 0} {t('inline:FOLLOWERS')}</div>
                               <h3>{t('inline:BY')} {data.creator.first_name} {data.creator.last_name}</h3>
                               <Row style={{marginTop:20}}>{data.description}</Row>
                           </Col>

@@ -13,7 +13,7 @@ class RoundAddButton extends React.Component {
     const { onClick, loading } = this.props;
     return (
       <Row type="flex" justify="center">
-        <Button loading={loading} className="round-add-button ant-btn-secondary" shape="circle" size="small" onClick={onClick}>
+        <Button loading={loading} className="round-add-button" type="primary" shape="circle" size="small" onClick={onClick}>
           <Icon type="plus" theme="outlined"/>
         </Button>
       </Row>

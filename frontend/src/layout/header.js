@@ -10,7 +10,7 @@ class Header extends React.Component {
 
     logout = () => {
         localStorage.removeItem('usertoken');
-        this.props.history.push(`/`);
+        window.location = "/";
     };
 
     render() {

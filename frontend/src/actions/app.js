@@ -39,9 +39,6 @@ export const unfollowPlaylist = (id) => {
     .then(response => {
       return response;
     })
-    .catch(err => {
-      return err;
-    })
 }
 
 export const getSongs = (term = "") => {
@@ -50,7 +47,12 @@ export const getSongs = (term = "") => {
     .then(response => {
       return response;
     })
-    .catch(err => {
-      return err;
+}
+
+export const getSong = (id) => {
+  return axios
+    .get('/songs/get/'+id+"/")
+    .then(response => {
+      return response;
     })
 }

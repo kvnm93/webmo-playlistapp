@@ -38,9 +38,6 @@ class LoginForm extends React.Component {
 
         return (
             <div className="login-form-wrapper">
-                <Row type="flex" justify="center">
-                    <h2>Login</h2>
-                </Row>
                 <Form onSubmit={ this.handleSubmit } className="login-form">
                     {
                         error && <Alert message={ _error } type="error" showIcon style={{marginBottom: 10}} />

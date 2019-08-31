@@ -1,6 +1,6 @@
 import React from 'react'
 import { login } from '../actions/auth';
-import { Row, Col } from 'antd';
+import { Row, Col, Alert} from 'antd';
 import Header from "../layout/header";
 import {SmallBoxGridLayout} from "../utils/grid-layout";
 import {Section, SectionContent} from "../components/section";
@@ -10,13 +10,12 @@ class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      errors: {}
+      errors: null
     }
 
-    this.onSubmit = this.onSubmit.bind(this)
   }
 
-  onSubmit(values) {
+  onSubmit = (values) => {
 
     const user = {
       username: values.username,
@@ -25,12 +24,17 @@ class Login extends React.Component {
 
     login(user).then(res => {
       if (res) {
-        this.props.history.push(`/profile`)
+        window.location = "/profile";
       }
+    }).catch(err => {
+      console.log(err);
+      this.setState({...this.state, errors: err.response.data});
     })
   }
 
   render() {
+    const { errors } = this.state;
+    console.log(errors);
     return (
       <Row>
         <Header selectedKeys={['login']}/>
@@ -38,6 +42,13 @@ class Login extends React.Component {
           <Col {...SmallBoxGridLayout}>
             <Section>
               <SectionContent>
+                <Row type="flex" justify="center">
+                    <h2>Login</h2>
+                </Row>
+                {
+                  errors &&
+                    <Alert style={{marginBottom: 20}} message={errors.error} type="error" />
+                }
                 <LoginForm onSubmit={this.onSubmit}/>
               </SectionContent>
             </Section>

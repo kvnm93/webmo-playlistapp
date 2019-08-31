@@ -21,5 +21,13 @@
   "YES": "Yes",
   "NO": "No",
   "DELETE": "Delete",
-  "EDIT": "Edit"
+  "EDIT": "Edit",
+  "EDIT_SONG": "Edit Song",
+  "CREATE_SONG": "Create Song",
+  "FOLLOWERS": "Follower(s)",
+  "EDIT_PLAYLIST": "Edit Playlist",
+  "CREATE_PLAYLIST": "Create Playlist",
+  "NAME": "Name",
+  "DESCRIPTION": "Description",
+  "COVER": "Cover URL"
 }

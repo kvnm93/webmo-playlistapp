@@ -75,7 +75,9 @@ users.post('/login', (req, res) => {
           let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
             expiresIn: 999999
           })
-          res.send(token)
+          res.status(200).send(token)
+        } else {
+          res.status(400).json({ error: 'Wrong username or password' });
         }
       } else {
         res.status(400).json({ error: 'User does not exist' })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import jwt_decode from 'jwt-decode'
 import Header from "../layout/header";
-import {Col, Row, Input, Table, Divider, Popconfirm, message} from "antd";
+import {Col, Row, Input, Table, Divider, Popconfirm, message, Button} from "antd";
 import {DefaultBoxGridLayout} from "../utils/grid-layout";
 import {Section, SectionContent} from "../components/section";
 import { withNamespaces } from 'react-i18next';
@@ -39,8 +39,11 @@ class Songs extends Component {
   }
 
   onClickDelete = (id) => {
+    const {t} = this.props;
     deleteSong(id).then(data => {
-      this.setState({...this.state, songs: this.state.songs.filter((e)=> { return e.id !== id })});
+      this.setState({...this.state, songs: this.state.songs.filter((e)=> { return e.id !== id })}, () => {
+        message.success(t('messages:SUCCESSFULLY_DELETED_SONG'));
+      });
     }).catch(err => {
         message.error(err);
       }
@@ -48,7 +51,7 @@ class Songs extends Component {
   }
 
   onClickEdit = (id) => {
-
+    this.props.history.push(`/songs/edit/${id}`)
   }
 
   getColumns = () => {
@@ -109,7 +112,8 @@ class Songs extends Component {
     const {t} = this.props;
     const { songs } = this.state;
     const columns = this.getColumns();
-
+    const token = localStorage.usertoken;
+    const decoded = jwt_decode(token);
 
     return (
       <Row>
@@ -120,8 +124,16 @@ class Songs extends Component {
               <SectionContent>
                 <Row>
                     <h2>Songs</h2>
+
                     <Row>
+                      <Col span={decoded.roles[0].id === 1 ? 18 : 24}>
                         <Search placeholder={t('placeholders:SEARCH_FOR_SONGS')} onSearch={this.onSearch} enterButton />
+                      </Col>
+                      { decoded.roles[0].id === 1 &&
+                        <Col span={6}>
+                          <Button style={{marginLeft: 5, width: "100%"}} type="primary" onClick={() => { this.props.history.push("/songs/create") }}>{t('buttons:ADD')}</Button>
+                        </Col>
+                      }
                     </Row>
                     <Row style={{marginTop:20}}>
                       <Table pagination={false} dataSource={songs} columns={columns} />
