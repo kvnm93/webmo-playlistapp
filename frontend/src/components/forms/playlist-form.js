@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, InputNumber } from 'antd';
 import { withNamespaces } from 'react-i18next';
 import PropTypes from 'prop-types';
+import SongSearchSelect from "./song-search-select";
 
 class PlaylistForm extends React.Component {
 
@@ -43,6 +44,18 @@ class PlaylistForm extends React.Component {
                     )
                 }
           </Form.Item>
+          <SongSearchSelect formItem={{
+            form: form,
+            formItem: {
+              label: t('inline:SONGS'),
+              decorate: {
+                name: "songs",
+                options: {
+                  initialValue: initialValues ? initialValues.songs : undefined
+                }
+              }
+            }
+          }}/>
           { children }
         </Form>
       </div>

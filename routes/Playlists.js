@@ -128,4 +128,49 @@ playlists.delete('/delete/:playlist', isAdmin, (req, res) => {
     })
 })
 
+// Add Playlists
+playlists.post('/add', isAdmin, (req, res) => {
+  var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
+
+  console.log(req.body);
+
+  models.playlist.create({...req.body, creatorId: decoded.id})
+    .then(playlist => {
+        playlist.addSongs(req.body.songs);
+        res.status(200).json(playlist)
+
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err)
+    })
+})
+
+// Update Playlists
+playlists.put('/update/:playlist', isAdmin, (req, res) => {
+  var decoded = jwt.verify(req.headers['authorization'], process.env.SECRET_KEY);
+
+  models.playlist.update(req.body, {
+    where: {
+        id: req.params.playlist
+    }
+  })
+    .then(p => {
+        models.playlist.findOne({
+          where: {
+            id: req.params.playlist
+          }
+        }).then(playlist => {
+          playlist.setSongs(req.body.songs)
+          res.status(200).send("success")
+        }).catch(err => {
+          res.status(500).send(err)
+        })
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).send(err)
+    })
+})
+
 module.exports = playlists

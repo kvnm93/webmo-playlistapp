@@ -4,5 +4,7 @@
   "CREATE_SONG": "Create Song",
   "ADD": "Add",
   "SAVE_PLAYLIST": "Save Playlist",
-  "CREATE_PLAYLIST": "Create Playlist"
+  "CREATE_PLAYLIST": "Create Playlist",
+  "LOGIN": "Login",
+  "SIGNUP": "Signup"
 }

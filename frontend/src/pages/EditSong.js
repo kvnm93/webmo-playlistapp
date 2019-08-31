@@ -57,7 +57,7 @@ class EditSong extends Component {
 
     return (
       <Row>
-        <Header selectedKeys={['playlists']}/>
+        <Header selectedKeys={['songs']}/>
         <Row type="flex" justify="center" style={{marginTop: 40}}>
           <Col {...DefaultBoxGridLayout}>
             <Section>

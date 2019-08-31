@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "password",
-    "database": "webmo",
-    "host": "127.0.0.1",
+    "username": "Tl3fleA9r4",
+    "password": "oU7INKr077",
+    "database": "Tl3fleA9r4",
+    "host": "remotemysql.com",
     "dialect": "mysql",
     "operatorsAliases": false
   },

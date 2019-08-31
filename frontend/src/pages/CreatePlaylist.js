@@ -9,7 +9,7 @@ import { withNamespaces } from 'react-i18next';
 import {createPlaylist} from '../actions/admin';
 import PlaylistForm from "../components/forms/playlist-form";
 
-class EditSong extends Component {
+class CreatePlaylist extends Component {
 
   constructor() {
     super()
@@ -29,13 +29,15 @@ class EditSong extends Component {
   }
 
   handleForm = () => {
-    const { match, t } = this.props;
+    const { t } = this.props;
     const form = this.formdataCreatePlaylist.props.form;
     form.validateFields((err, values) => {
       if (err) {
         return false;
       }
-      createPlaylist(match.params.id, values).then(data => {
+      console.log(values);
+
+      createPlaylist({...values, songs: values.songs.map((e)=> { return e.key})}).then(data => {
         message.success(t('messages:SUCCESSFULLY_CREATED'));
       }).catch(err => {
         message.error(t('messages:CREATION_FAILED'));
@@ -56,7 +58,7 @@ class EditSong extends Component {
             <Section>
               <SectionContent>
                 <h2>{t('inline:CREATE_PLAYLIST')}</h2>
-                  <PlaylistForm >
+                  <PlaylistForm wrappedComponentRef={this.saveForm}>
                     <Row type="flex" justify="end">
                       <Button type="primary" onClick={this.handleForm}>{t('buttons:CREATE_PLAYLIST')}</Button>
                     </Row>
@@ -71,4 +73,4 @@ class EditSong extends Component {
 
 }
 
-export default withNamespaces(['inline'])(EditSong);
+export default withNamespaces(['inline'])(CreatePlaylist);

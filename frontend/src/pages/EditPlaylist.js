@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import jwt_decode from 'jwt-decode'
 import Header from "../layout/header";
 import {Col, Row, Button, message} from "antd";
 import {DefaultBoxGridLayout} from "../utils/grid-layout";
@@ -7,8 +6,6 @@ import {Section, SectionContent} from "../components/section";
 import { withNamespaces } from 'react-i18next';
 import {getPlaylist } from '../actions/app';
 import { updatePlaylist } from '../actions/admin';
-import {secondsToMinutes} from "../utils";
-import SongForm from "../components/forms/song-form";
 import PlaylistForm from "../components/forms/playlist-form";
 
 class EditSong extends Component {
@@ -43,7 +40,8 @@ class EditSong extends Component {
       if (err) {
         return false;
       }
-      updatePlaylist(match.params.id, values).then(data => {
+      console.log(values);
+      updatePlaylist(match.params.id, {...values, songs: values.songs.map((e)=> { return e.key; })}).then(data => {
         message.success(t('messages:SUCCESSFULLY_UPDATED'));
       }).catch(err => {
         message.error(t('messages:UPDATE_FAILED'));
@@ -56,6 +54,10 @@ class EditSong extends Component {
     const {t} = this.props;
     const { error, data } = this.state;
 
+    const initialData = data ? {
+      ...data, songs: data.songs ? data.songs.map((e) => { return {key: e.id, label: e.artist + " - " + e.title};}) : []}
+     : {};
+
     return (
       <Row>
         <Header selectedKeys={['playlists']}/>
@@ -64,7 +66,7 @@ class EditSong extends Component {
             <Section>
               <SectionContent>
                 <h2>{t('inline:EDIT_PLAYLIST')}</h2>
-                  <PlaylistForm initialValues={data}>
+                  <PlaylistForm initialValues={initialData} wrappedComponentRef={this.saveForm}>
                     <Row type="flex" justify="end">
                       <Button type="primary" onClick={this.handleForm}>{t('buttons:SAVE_PLAYLIST')}</Button>
                     </Row>

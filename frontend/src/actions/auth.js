@@ -10,7 +10,7 @@ export const register = newUser => {
       user_roles: parseInt(newUser.user_roles)
     })
     .then(response => {
-      console.log('Registered')
+      return response;
     })
 }
 

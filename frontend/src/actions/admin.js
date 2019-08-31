@@ -42,6 +42,7 @@ export const updatePlaylist = (id, values) => {
 }
 
 export const createPlaylist = (values) => {
+  console.log(values);
   return axios
     .post('/playlists/add', values)
     .then(response => {

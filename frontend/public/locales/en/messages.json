@@ -7,5 +7,11 @@
   "SUCCESSFULLY_CREATED": "Successfully created",
   "FAILED_TO_DELETE_PLAYLIST": "Could not delete playlist",
   "SUCCESSFULLY_DELETED_PLAYLIST": "Playlist successfully deleted",
-  "SUCCESSFULLY_DELETED_SONG": "Song successfully deleted"
+  "SUCCESSFULLY_DELETED_SONG": "Song successfully deleted",
+  "USERNAME_REQUIRED": "Please input username",
+  "PASSWORD_REQUIRED": "Please insert password",
+  "FIRSTNAME_REQUIRED": "Please input firstname",
+  "SURNAME_REQUIRED": "Please input lastname",
+  "ROLE_REQUIRED": "Please select a role",
+  "EMAIL_REQUIRED": "Please input an email"
 }
