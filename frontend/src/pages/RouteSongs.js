@@ -3,8 +3,17 @@ import { Switch, Route } from 'react-router';
 import Songs from './Songs';
 import EditSong from './EditSong';
 import CreateSong from './CreateSong';
+import jwt_decode from "jwt-decode";
 
 export default class RouteSongs extends React.Component {
+
+  componentDidMount () {
+    const token = localStorage.usertoken
+    if (!token) {
+      window.location = "/"
+    }
+
+  }
 
   render()
   {

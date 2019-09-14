@@ -1,15 +1,21 @@
 import React from 'react';
-import {Col, Row} from "antd";
 import { Switch, Route } from 'react-router';
 import Playlists from './Playlists';
 import SinglePlaylist from './SinglePlaylist';
 import EditPlaylist from './EditPlaylist';
 import CreatePlaylist from './CreatePlaylist';
+import jwt_decode from "jwt-decode";
 
 export default class RoutePlaylists extends React.Component {
 
-  render()
-  {
+  componentDidMount () {
+    const token = localStorage.usertoken
+    if (!token) {
+      window.location = "/"
+    }
+  }
+
+  render() {
     const { match } = this.props;
 
     const viewSinglePlaylistPath = match.url + "/:id/";
